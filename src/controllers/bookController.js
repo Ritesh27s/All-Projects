@@ -109,20 +109,27 @@ const updateBook = async function (req, res) {
       let data = req.body
       let { title, excerpt, releasedAt, ISBN } = data
 
+      if(title){
       if (!isValid(title)) return res.status(400).send({ status: false, message: "Please enter a title" })
 
       let titleCheck = await bookModel.findOne({ title })
 
       if (titleCheck) return res.status(400).send({ status: false, message: "title is already exists" })
+      }
 
+      if(releasedAt){
       if (!isValid(releasedAt)) return res.status(400).send({ status: false, message: "Please enter released date" })
 
       if (!isValidDate(releasedAt)) return res.status(400).send({ status: false, message: "Please enter date in (YYYY/MM/DD) this format" })
-
+      }
+      
+      if(ISBN){
       let isbnCheck = await bookModel.findOne({ ISBN: ISBN })
 
       if (isbnCheck) return res.status(400).send({ status: false, message: "ISBN is already exists" })
 
+      }
+      
       let idCheck = await bookModel.findById(bookId)
       if (!idCheck) return res.status(404).send({ status: false, message: "book not found " })
 

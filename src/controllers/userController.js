@@ -17,7 +17,8 @@ const createUser = async function (req, res) {
         if (!isValid(title)) return res.status(400).send({ status: false, message: "please provide title" })
 
         title = data.title.trim()
-        if (title != ("Mr" || "Mrs" || "Miss")) return res.status(400).send({ status: false, message: "please provide valid title" })
+        console.log(title)
+        if (title != ("Mr" && "Mrs" && "Miss")) return res.status(400).send({ status: false, message: "please provide valid title" })
 
         if (!isValid(name)) return res.status(400).send({ status: false, message: "please provide name" })
 

@@ -10,7 +10,7 @@ const createReviews = async function (req, res) {
     try {
         let id = req.params.bookId
         let data = req.body
-        let { review, rating, reviewedBy,reviewedAt } = data
+        let { review, rating,reviewedBy,reviewedAt } = data
 
         if (!mongoose.isValidObjectId(id)) return res.status(400).send({ status: false, message: "enter valid bookId" })
 

@@ -55,7 +55,8 @@ const createCollege = async function (req, res) {
 
 
 
-const listOfCollageIntern = async function (req, res) {
+const collegeDetailsApi = async function (req, res) {
+  res.setHeader('Access-Control-Allow-Origin','*')
 
     try {
 
@@ -78,7 +79,7 @@ const listOfCollageIntern = async function (req, res) {
         let internsNameWithCollege = await internModel.find({ collegeId: collegeId._id, isDeleted: false }).select({ _id: 1, name: 1, email: 1, mobile: 1 })
 
         if(internsNameWithCollege.length === 0)
-          return res.status(400).send({ status: false, message: "NO intern found from this college" })
+          return res.status(200).send({ status: false, message: "NO intern found from this college" })
 
         let NewData = {
             name: collegeId.name,
@@ -95,4 +96,4 @@ const listOfCollageIntern = async function (req, res) {
 }
 
 
-module.exports = { listOfCollageIntern, createCollege }
+module.exports = { collegeDetailsApi, createCollege }

@@ -11,9 +11,9 @@ router.post("/authors", authorController.createAuthor)
 
 router.post("/blogs", authentication, blogController.createBlog)
 
-router.get("/blogs",authentication, blogController.getByBlogs)
+router.get("/blogs", authentication, blogController.getByBlogs)
 
-router.put("/blogs/:blogId",authentication,authorization, blogController.updateBlogs)
+router.put("/blogs/:blogId", authentication, authorization, blogController.updateBlogs)
 
 router.delete("/blogs/:blogId", authentication, authorization, blogController.deleteBlogs)
 

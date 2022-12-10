@@ -58,16 +58,19 @@ const updateBlogs = async function (req, res) {
         if (validId.isDeleted == true) {
             return res.status(404).send({ status: false, message: "this is not exixts" })
         }
-        if (validId.isPublished != true) {
-            let date = await blogModels.findOneAndUpdate({ _id: blogId }, { $set: { isPublished: isPublished, publishedAt: moment().format('YYYY MM DD') } })
-            return res.status(200).send({ status: true, message: date })
+        if (validId.isPublished == false) {
+           await blogModels.findOneAndUpdate({ _id: blogId }, { $set: { isPublished : isPublished, publishedAt: moment().format('YYYY MM DD') } })
+           
         }
-        let updateBlog = await blogModels.updateOne({ _id: blogId },
-            { $set: { title: title, body: body }, $push: { tags: tags, subcategory: subcategory } },
-            { new: true }
-        )
+           await blogModels.updateOne({ _id: blogId },
+              { $set: { title: title, body: body }, 
+              $push: { tags: tags, subcategory: subcategory }},
+              { new: true }
+        ) 
         let updatedData = await blogModels.findById(blogId)
         return res.status(200).send({ status: true, message: updatedData })
+
+        
 
     }
     catch (err) {

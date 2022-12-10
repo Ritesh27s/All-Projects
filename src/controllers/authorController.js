@@ -4,8 +4,9 @@ const jwt = require("jsonwebtoken")
 
 const createAuthor = async function (req, res) {
     try {
-        let data = req.body
-        let savedAuthor = await authorModel.create(data)
+        const{fName,lName,title,email,password} = req.body
+
+        let savedAuthor = await authorModel.create({fName,lName,title,email,password})
         res.status(201).send({ msg: savedAuthor })
     }
     catch (err) {
@@ -17,7 +18,8 @@ const createAuthor = async function (req, res) {
 
 const authorLogIn = async function (req, res) {
     try {
-        const { email, password } = req.body
+        const{ email, password } = req.body
+        
         let valid = await authorModel.findOne({ email, password })
         if (!valid) {
             return res.status(404).send({ status: false, message: "emailId and password is incorrect" })
